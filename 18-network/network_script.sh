@@ -18,7 +18,7 @@ sudo pacman -Syu --noconfirm
 echo
 echo "=== Installerer alle nettverkspakker ==="
 
-# PROTOKOLL & DRIVER PAKKER - for maksimal synlighet i Dolphin/FileZilla
+# PROTOKOLL & DRIVER PAKKER - for maksimal synlighet i Dolphin
 ALL_PACKAGES=(
     # SMB/CIFS DRIVER støtte 
     "smbclient"          # SMB protocol driver
@@ -78,7 +78,6 @@ ALL_PACKAGES=(
     
     # Dolphin file manager
     "dolphin"            # File manager
-    "filezilla"          # FTP client
 )
 
 echo "Installerer PROTOKOLL & DRIVER pakker med --needed (kun det som trengs)..."
