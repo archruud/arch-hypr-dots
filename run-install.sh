@@ -55,6 +55,7 @@ INSTALL_ORDER=(
     "17-waybar"
     "18-network"
     "19-make-executable"
+    "20-gpu-drivers"
     "25-scripts-and-files"
 )
 
@@ -84,7 +85,8 @@ echo ""
 echo -e "${YELLOW}📝 Merk:${NC}"
 echo "  • Kun SDDM trenger sudo (kopierer til /usr/share/)"
 echo "  • Pakkeinstallasjoner (pacman) spør selv om passord"
-echo "  • 25-scripts-and-files kjører SIST (overskriver med ferdig hyprland.conf)"
+echo "  • 20-gpu-drivers oppdager GPU automatisk (Intel iGPU / Arc)
+  • 25-scripts-and-files kjører SIST (overskriver med ferdig hyprland.conf)"
 echo ""
 
 # Installer hver komponent
