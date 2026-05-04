@@ -19,12 +19,10 @@ kvantum               # Qt theme engine
 
 # === DEVELOPMENT ===
 zed
-# tmux
 hdrop-git # Dropdown terminal/program toggle for Hyprland - SUPER+SHIFT+RETURN
 
 # === UTILITIES ===
 rofi                    # Rofi for Wayland
-# wofi                  # Alternative launcher
 fuzzel                  # Another launcher
 webapp-manager          # Run websites as if they were apps
 
@@ -36,11 +34,10 @@ auto-cpufreq            # Automatic CPU frequency scaling
 # discord                 #
 libreoffice-still-nb    # Office Norsk
 kate                    # kate textbehandler fra KDE Plasma
-# github-desktop-plus-bin # Fork of GitHub Desktop with extra features and improvements.
 
 # === NETWORK ===
 nmgui-bin               # Wifi gui - gui bassert nmcli terminal
 
 # === FONTS AND ICONS ===
-# nerd-fonts-git    #Iconic font aggregator, collection, and patcher: 34 fonts (77k variations)
+nerd-fonts-git    #Iconic font aggregator, collection, and patcher: 34 fonts (77k variations)
 
