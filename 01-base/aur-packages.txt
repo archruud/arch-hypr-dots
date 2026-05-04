@@ -1,0 +1,46 @@
+# AUR Packages - Standalone installasjon
+# Programmer fra AUR som ikke trenger konfigurasjon
+# Ett program per linje, linjer som starter med # er kommentarer
+
+# === HYPRLAND ECOSYSTEM ===
+hyprpicker             # Color picker
+
+# === WAYLAND TOOLS ===
+# wl-screenrec          # Screen recorder
+# wf-recorder            # Alternative screen recorder
+
+# === APPEARANCE ===
+# nwg-look               # GTK theme switcher
+qt5ct                  # Qt5 theme config
+qt6ct                  # Qt6 theme config
+kvantum               # Qt theme engine
+
+# === FILE MANAGERS ===
+
+# === DEVELOPMENT ===
+zed
+# tmux
+hdrop-git # Dropdown terminal/program toggle for Hyprland - SUPER+SHIFT+RETURN
+
+# === UTILITIES ===
+rofi                    # Rofi for Wayland
+# wofi                  # Alternative launcher
+fuzzel                  # Another launcher
+webapp-manager          # Run websites as if they were apps
+
+# === SYSTEM ===
+auto-cpufreq            # Automatic CPU frequency scaling
+
+# === OPTIONAL ===
+# spotify               # Music streaming
+# discord                 #
+libreoffice-still-nb    # Office Norsk
+kate                    # kate textbehandler fra KDE Plasma
+# github-desktop-plus-bin # Fork of GitHub Desktop with extra features and improvements.
+
+# === NETWORK ===
+nmgui-bin               # Wifi gui - gui bassert nmcli terminal
+
+# === FONTS AND ICONS ===
+# nerd-fonts-git    #Iconic font aggregator, collection, and patcher: 34 fonts (77k variations)
+

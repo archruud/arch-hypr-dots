@@ -1,0 +1,32 @@
+//* ---- 💫 https://github.com/JaKooLit 💫 ---- *//
+/* Waybar Modules Extras */
+
+/* This is where you can add Extra Modules you wish. copy.sh will try to restore*/
+/* this file along with the unique configs and styles. */
+/* IMPORTANT, be mindful with , or ". else waybar will not start */
+
+{
+    "custom/menu#user": {
+	"format": " 󰣇 ",
+	"on-click": "killall rofi || $HOME/.config/rofi/launchers/type-2/launcher.sh",
+	"tooltip": true,
+	"tooltip-format": "Left Click: Rofi Menu",
+    },
+
+    "custom/wifiuser": {
+	"format": "  ",
+	"on-click": "nmgui",
+	"tooltip": true,
+	"tooltip-format": "Left Click: Wifi Menu",
+    },
+
+    "group/div#user": {
+	    "orientation": "inherit",
+	    "modules": [
+			"custom/wifiuser",
+		    "bluetooth",
+			"pulseaudio",
+		    "pulseaudio#microphone",
+	    ]
+    },
+}

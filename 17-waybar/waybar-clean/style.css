@@ -1,0 +1,505 @@
+/* ---- 💫 Archruud Custom Waybar Style 💫 ---- */
+/* Hardkodede farger - Ingen CSS variabler */
+
+/* -----------------------------------------------------
+ * Generelle innstillinger
+ * ----------------------------------------------------- */
+
+* {
+    font-family:
+        "JetBrainsMono Nerd Font", "Fira Sans Semibold", "Font Awesome 6 Free",
+        sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    min-height: 0;
+    border: none;
+    border-radius: 0px;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+window#waybar.empty,
+window#waybar.empty #window {
+    background-color: transparent;
+    padding: 0px;
+    border: 0px;
+}
+
+/* -----------------------------------------------------
+ * Modul-grupper (venstre, senter, høyre)
+ * ----------------------------------------------------- */
+
+.modules-left {
+    background: transparent;
+    border-radius: 0px;
+    border: none;
+    opacity: 1;
+    padding: 0px;
+    margin: 8px 0px 8px 8px;
+}
+
+.modules-center {
+    background: transparent;
+    border-radius: 0px;
+    border: none;
+    opacity: 1;
+    margin: 8px 4px 8px 4px;
+}
+
+.modules-right {
+    background: transparent;
+    border-radius: 0px;
+    border: none;
+    opacity: 1;
+    padding: 0px;
+    margin: 8px 8px 8px 0px;
+}
+
+/* -----------------------------------------------------
+ * Generelle modul-etiketter
+ * ----------------------------------------------------- */
+
+label.module {
+    color: #f8f8f4;
+    padding: 4px 10px;
+    margin: 0px 2px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+label.module:hover {
+    background: rgba(46, 146, 219, 0.2);
+}
+
+/* -----------------------------------------------------
+ * Workspaces
+ * ----------------------------------------------------- */
+
+#workspaces {
+    background: rgba(65, 66, 73, 0.8);
+    border-radius: 10px;
+    padding: 4px 8px;
+    margin: 0px 4px;
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.3);
+}
+
+#workspaces:hover {
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.5);
+}
+
+#workspaces button {
+    color: #f8f8f4;
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin: 0px 2px;
+    background: transparent;
+    transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+    box-shadow: none;
+    text-shadow: none;
+}
+
+#workspaces button.active {
+    background: #2e92db;
+    color: #1a1c22;
+    padding: 2px 10px;
+    font-weight: bold;
+}
+
+#workspaces button:hover {
+    background: rgba(46, 146, 219, 0.3);
+    color: #f8f8f4;
+    padding: 2px 10px;
+}
+
+#workspaces button.empty {
+    color: #f8f8f4;
+}
+
+#workspaces button:not(.empty):not(.active) {
+    color: #2e92db;
+}
+
+#workspaces button.urgent {
+    background: #05142c;
+    color: #f8f8f4;
+    animation: blink 1s ease-in-out infinite;
+}
+
+/* -----------------------------------------------------
+ * Window title
+ * ----------------------------------------------------- */
+
+#window {
+    background: rgba(65, 66, 73, 0.8);
+    border-radius: 10px;
+    padding: 4px 12px;
+    margin: 0px 4px;
+    color: #f8f8f4;
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.3);
+    transition: none;
+}
+
+#window:hover {
+    background: rgba(65, 66, 73, 0.9);
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.5);
+}
+
+window#waybar.empty #window {
+    background-color: transparent;
+    padding: 0px;
+    margin: 0px;
+    box-shadow: none;
+}
+
+/* -----------------------------------------------------
+ * Custom menu
+ * ----------------------------------------------------- */
+
+#custom-menu,
+#custom-menu\#user {
+    background: rgba(65, 66, 73, 0.8);
+    border-radius: 10px;
+    padding: 4px 12px;
+    margin: 0px 4px;
+    color: #f8f8f4;
+    font-size: 20px;
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.3);
+}
+
+#custom-menu:hover,
+#custom-menu\#user:hover {
+    background: rgba(65, 66, 73, 0.9);
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.5);
+}
+
+/* -----------------------------------------------------
+ * Clock
+ * ----------------------------------------------------- */
+
+#clock {
+    background: rgba(65, 66, 73, 0.8);
+    border-radius: 10px;
+    padding: 6px 20px;
+    margin: 0px;
+    color: #f8f8f4;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.3);
+}
+
+#clock:hover {
+    background: rgba(65, 66, 73, 0.9);
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.5);
+}
+
+/* -----------------------------------------------------
+ * Nettverkshastighet og status
+ * ----------------------------------------------------- */
+
+#network,
+#network\#speed {
+    background: rgba(65, 66, 73, 0.8);
+    border-radius: 10px;
+    padding: 4px 12px;
+    margin: 0px 4px;
+    color: #f8f8f4;
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.3);
+}
+
+#network:hover,
+#network\#speed:hover {
+    background: rgba(65, 66, 73, 0.9);
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.5);
+}
+
+#network.disconnected {
+    color: #05142c;
+    box-shadow: inset 0 0 0 1px rgba(5, 20, 44, 0.4);
+}
+
+/* -----------------------------------------------------
+ * Grupper - Sammenhengende styling
+ * ----------------------------------------------------- */
+
+#custom-wifiuser,
+#power-profiles-daemon,
+#bluetooth,
+#pulseaudio,
+#pulseaudio\#microphone,
+#pulseaudio.microphone {
+    background: rgba(65, 66, 73, 0.8);
+    padding: 4px 10px;
+    margin: 0px;
+    color: #f8f8f4;
+    border-radius: 0px;
+    box-shadow: none;
+}
+
+#custom-wifiuser {
+    border-radius: 10px 0px 0px 10px;
+    padding-left: 12px;
+    margin-left: 4px;
+    box-shadow:
+        inset 1px 0 0 0 rgba(46, 146, 219, 0.3),
+        inset 0 1px 0 0 rgba(46, 146, 219, 0.3),
+        inset 0 -1px 0 0 rgba(46, 146, 219, 0.3);
+}
+
+#bluetooth,
+#pulseaudio {
+    box-shadow:
+        inset 0 1px 0 0 rgba(46, 146, 219, 0.3),
+        inset 0 -1px 0 0 rgba(46, 146, 219, 0.3);
+}
+
+#pulseaudio\#microphone,
+#pulseaudio.microphone {
+    border-radius: 0px 10px 10px 0px;
+    padding-right: 12px;
+    margin-right: 4px;
+    box-shadow:
+        inset -1px 0 0 0 rgba(46, 146, 219, 0.3),
+        inset 0 1px 0 0 rgba(46, 146, 219, 0.3),
+        inset 0 -1px 0 0 rgba(46, 146, 219, 0.3);
+}
+
+#custom-wifiuser:hover,
+#bluetooth:hover,
+#pulseaudio:hover,
+#pulseaudio\#microphone:hover,
+#pulseaudio.microphone:hover {
+    background: rgba(65, 66, 73, 0.95);
+}
+
+#custom-wifiuser:hover {
+    box-shadow:
+        inset 1px 0 0 0 rgba(46, 146, 219, 0.6),
+        inset 0 1px 0 0 rgba(46, 146, 219, 0.6),
+        inset 0 -1px 0 0 rgba(46, 146, 219, 0.6);
+}
+
+#bluetooth:hover,
+#pulseaudio:hover {
+    box-shadow:
+        inset 0 1px 0 0 rgba(46, 146, 219, 0.6),
+        inset 0 -1px 0 0 rgba(46, 146, 219, 0.6);
+}
+
+#pulseaudio\#microphone:hover,
+#pulseaudio.microphone:hover {
+    box-shadow:
+        inset -1px 0 0 0 rgba(46, 146, 219, 0.6),
+        inset 0 1px 0 0 rgba(46, 146, 219, 0.6),
+        inset 0 -1px 0 0 rgba(46, 146, 219, 0.6);
+}
+
+/* -----------------------------------------------------
+ * Bluetooth
+ * ----------------------------------------------------- */
+
+#bluetooth {
+    color: #f8f8f4;
+}
+
+#bluetooth.off {
+    color: rgba(248, 248, 244, 0.5);
+}
+
+/* -----------------------------------------------------
+ * Pulseaudio (lyd og mikrofon)
+ * ----------------------------------------------------- */
+
+#pulseaudio,
+#pulseaudio\#microphone,
+#pulseaudio.microphone {
+    color: #f8f8f4;
+}
+
+/* Hold ikonene hvite selv når mutet */
+#pulseaudio.muted,
+#pulseaudio\#microphone.muted {
+    color: #f8f8f4;
+}
+
+/* -----------------------------------------------------
+ * Custom WiFi User
+ * ----------------------------------------------------- */
+
+#custom-wifiuser {
+    color: #f8f8f4;
+}
+
+/* -----------------------------------------------------
+ * Batteri
+ * ----------------------------------------------------- */
+
+#battery {
+    background: rgba(65, 66, 73, 0.8);
+    border-radius: 10px;
+    padding: 4px 12px;
+    margin: 0px 4px;
+    color: #f8f8f4;
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.3);
+}
+
+#battery:hover {
+    background: rgba(65, 66, 73, 0.9);
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.5);
+}
+
+#battery.charging,
+#battery.plugged {
+    color: #a6e3a1;
+    box-shadow: inset 0 0 0 1px rgba(166, 227, 161, 0.4);
+}
+
+#battery.critical:not(.charging) {
+    background: #05142c;
+    color: #f8f8f4;
+    animation: blink 2s ease-in-out infinite;
+    box-shadow: inset 0 0 0 2px #2e92db;
+}
+
+/* -----------------------------------------------------
+ * Custom Power
+ * ----------------------------------------------------- */
+
+#custom-power {
+    background: rgba(65, 66, 73, 0.8);
+    border-radius: 10px;
+    padding: 4px 12px;
+    margin: 0px 4px;
+    color: #f8f8f4;
+    font-size: 18px;
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.3);
+}
+
+#custom-power:hover {
+    background: rgba(65, 66, 73, 0.9);
+    box-shadow: inset 0 0 0 1px rgba(46, 146, 219, 0.5);
+}
+
+/* -----------------------------------------------------
+ * Andre moduler
+ * ----------------------------------------------------- */
+
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#keyboard-state,
+#idle_inhibitor,
+#tray {
+    padding: 4px 10px;
+    margin: 0px 2px;
+    color: #f8f8f4;
+}
+
+#cpu:hover,
+#memory:hover,
+#disk:hover,
+#temperature:hover,
+#backlight:hover,
+#keyboard-state:hover,
+#idle_inhibitor:hover,
+#power-profiles-daemon:hover {
+    background: rgba(46, 146, 219, 0.2);
+    border-radius: 8px;
+}
+
+#temperature.critical {
+    background: #05142c;
+    color: #f8f8f4;
+}
+
+#idle_inhibitor.activated {
+    color: #a6e3a1;
+}
+
+/* -----------------------------------------------------
+ * Tray
+ * ----------------------------------------------------- */
+
+#tray {
+    padding: 4px 10px 4px 6px;
+    margin: 0px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background: rgba(5, 20, 44, 0.3);
+}
+
+/* -----------------------------------------------------
+ * Tooltips
+ * ----------------------------------------------------- */
+
+tooltip {
+    background: rgba(65, 66, 73, 0.95);
+    border-radius: 10px;
+    border: 1px solid rgba(46, 146, 219, 0.3);
+    opacity: 0.95;
+    padding: 8px 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+tooltip label {
+    color: #f8f8f4;
+    font-weight: normal;
+}
+
+/* -----------------------------------------------------
+ * Animasjoner
+ * ----------------------------------------------------- */
+
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* -----------------------------------------------------
+ * Sliders (hvis brukt)
+ * ----------------------------------------------------- */
+
+#backlight-slider slider,
+#pulseaudio-slider slider {
+    min-width: 0px;
+    min-height: 0px;
+    opacity: 0;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+    min-width: 80px;
+    min-height: 8px;
+    border-radius: 5px;
+    background: rgba(65, 66, 73, 0.5);
+}
+
+#backlight-slider highlight,
+#pulseaudio-slider highlight {
+    min-height: 8px;
+    border-radius: 5px;
+    background: #2e92db;
+}
