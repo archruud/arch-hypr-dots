@@ -45,7 +45,7 @@ The installer will guide you through the installation process, allowing you to s
 .
 ├── 01-base/                 # Core Hyprland installation
 ├── 02-post-install/         # Post-installation configurations
-├── 03-swww/                 # Wallpaper daemon
+├── 03-awww/                 # Wallpaper daemon
 ├── 04-hypridle/             # Idle management
 ├── 05-hyprlock/             # Screen lock
 ├── 06-wlogout/              # Logout menu
@@ -77,7 +77,7 @@ The installer will guide you through the installation process, allowing you to s
 
 ### Functionality
 
-- **SWWW**: Wallpaper daemon for dynamic backgrounds
+- **AWWW**: Wallpaper daemon for dynamic backgrounds
 - **Hypridle**: Idle daemon for automatic actions
 - **Hyprlock**: Screen locking utility
 - **Wlogout**: Logout menu with power options
