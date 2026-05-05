@@ -10,7 +10,9 @@ This repository contains a collection of installation scripts designed to help y
 
 - **Modular Design**: Install only what you need, or install everything at once
 - **Automated Installation**: Each module handles package installation and configuration
-- **Comprehensive Coverage**: Includes window management, wallpapers, notifications, lock screen, and more
+- **Comprehensive Coverage**: Includes window management, wallpapers, notifications, lock screen, GPU drivers and more
+- **GPU Auto-Detection**: Automatically detects Intel iGPU and Intel Arc discrete GPU
+- **Local AI Support**: Optional Ollama + Open WebUI for private, offline AI
 - **Easy to Customize**: Clear structure makes it simple to modify or extend
 - **Battle-Tested**: Based on real-world usage and refined configurations
 
@@ -19,6 +21,7 @@ This repository contains a collection of installation scripts designed to help y
 - Fresh or existing Arch Linux installation
 - Basic knowledge of Linux command line
 - Git installed (`sudo pacman -S git`)
+- AUR helper installed (`yay` or `paru`)
 - Internet connection
 
 ## Quick Start
@@ -26,15 +29,15 @@ This repository contains a collection of installation scripts designed to help y
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/archruud/Arch-Linux-Hyprland-Install-Scripts.git
-cd Arch-Linux-Hyprland-Install-Scripts
+git clone https://github.com/archruud/arch-hypr-dots.git
+cd arch-hypr-dots
 ```
 
 ### Run the Installer
 
 ```bash
-chmod +x run-installer.sh
-./run-installer.sh
+chmod +x run-install.sh
+./run-install.sh
 ```
 
 The installer will guide you through the installation process, allowing you to select which components to install.
@@ -45,13 +48,13 @@ The installer will guide you through the installation process, allowing you to s
 .
 ├── 01-base/                 # Core Hyprland installation
 ├── 02-post-install/         # Post-installation configurations
-├── 03-awww/                 # Wallpaper daemon
+├── 03-awww/                 # Wallpaper daemon (awww — erstatter swww)
 ├── 04-hypridle/             # Idle management
 ├── 05-hyprlock/             # Screen lock
 ├── 06-wlogout/              # Logout menu
 ├── 07-power-button/         # Power button configuration
 ├── 08-notifications/        # Notification system
-├── 09-dropdown-terminal/    # Dropdown terminal setup
+├── 09-dropdown-terminal/    # Dropdown terminal (hdrop)
 ├── 10-overview/             # Workspace overview
 ├── 11-fuzzel-hyprpicker/    # Application launcher and color picker
 ├── 12-kitty/                # Kitty terminal configuration
@@ -62,9 +65,11 @@ The installer will guide you through the installation process, allowing you to s
 ├── 17-waybar/               # Status bar
 ├── 18-network/              # Network configuration
 ├── 19-make-executable/      # Script permissions setup
+├── 20-gpu-drivers/          # GPU drivers: Intel iGPU + Intel Arc AI
 ├── 25-scripts-and-files/    # Additional scripts and configuration files
 ├── install-order.conf       # Installation order configuration
-└── run-installer.sh         # Main installer script
+├── run-install.sh           # Main installer script
+└── check-installation.sh    # Verify installation
 ```
 
 ## Components
@@ -77,90 +82,166 @@ The installer will guide you through the installation process, allowing you to s
 
 ### Functionality
 
-- **AWWW**: Wallpaper daemon for dynamic backgrounds
+- **AWWW**: Wallpaper daemon for dynamic backgrounds (erstatter swww)
 - **Hypridle**: Idle daemon for automatic actions
 - **Hyprlock**: Screen locking utility
 - **Wlogout**: Logout menu with power options
 
+### GPU Drivers (20-gpu-drivers)
+
+Støtter følgende oppsett automatisk:
+
+| Maskin | GPU | Hva installeres |
+|---|---|---|
+| Dell Pro 16 | Intel integrert | Mesa, Vulkan, VA-API |
+| Lenovo (12. gen) | Intel integrert | Mesa, Vulkan, VA-API |
+| Medion Erazer Major X10 | Intel Iris Xe + **Arc A730M 12GB** | iGPU-drivere + Arc AI-drivere |
+
+**Intel Arc A730M AI-stack:**
+- Intel Compute Runtime (OpenCL + Level Zero)
+- Intel Graphics Compiler
+- PyTorch XPU (Intel Arc GPU-akselerasjon)
+- Transformers, Diffusers, LangChain, og mer
+- Ollama + Open WebUI (valgfritt)
+
+### Local AI (Ollama + Open WebUI)
+
+- **Ollama**: Lokal LLM-motor med Intel Arc XPU-støtte
+- **Open WebUI**: ChatGPT-lignende grensesnitt, støtter RAG og dokumentanalyse
+- Installeres som del av `20-gpu-drivers`
+
 ### Utilities
 
-- **Rofi**: Application launcher and menu system
-- **Fuzzel**: Alternative launcher and color picker
-- **Kitty**: GPU-accelerated terminal emulator
-- **Dunst**: Lightweight notification daemon
-- **Screenshots**: Complete screenshot solution with editing tools
-- **Make Executable**: Automatically sets correct permissions for all scripts
+- **Rofi**: Application launcher og menysystem
+- **Fuzzel**: Alternativ launcher og fargevelger
+- **Kitty**: GPU-akselerert terminalemulator
+- **Dunst**: Lettvekts varslingsdaemon
+- **Screenshots**: Komplett skjermbildeløsning med redigeringsverktøy
+- **Make Executable**: Setter automatisk riktige rettigheter for alle scripts
 
 ### Networking
 
-- Network management tools and configurations
+- Nettverksadministrasjon og konfigurasjoner
 
 ## Installation Methods
 
 ### Method 1: Interactive Installer (Recommended)
 
 ```bash
-./run-installer.sh
+./run-install.sh
 ```
 
-Follow the prompts to select which components you want to install.
+Følg instruksjonene for å velge hvilke komponenter du vil installere.
 
 ### Method 2: Manual Installation
 
-Navigate to any component directory and run its installation script:
+Naviger til en komponent-mappe og kjør installasjonsskriptet:
 
 ```bash
-cd 01-base
-./install.sh
+cd 20-gpu-drivers
+./install-gpu-driver.sh
 ```
 
 ### Method 3: Custom Order
 
-Edit `install-order.conf` to define your custom installation order, then run the installer.
+Rediger `install-order.conf` for å definere din egen installasjonsrekkefølge, og kjør deretter installeren.
+
+## GPU Driver Details
+
+### Automatisk GPU-oppdagelse
+
+`install-gpu-driver.sh` oppdager automatisk hvilke GPUer som er tilstede:
+
+```bash
+cd 20-gpu-drivers
+./install-gpu-driver.sh
+```
+
+### Intel integrert GPU (alle maskiner)
+
+Installerer: `mesa`, `vulkan-intel`, `intel-media-driver`, `libva-utils`, `vulkan-tools`
+
+### Intel Arc A730M (Medion Erazer Major X10)
+
+Installerer i tillegg:
+- `intel-compute-runtime` — OpenCL + Level Zero
+- `level-zero-loader` — AI-akselerasjon
+- `intel-graphics-compiler-bin` — forhåndsbygd (sparer 30-60 min)
+- PyTorch XPU i eget venv: `~/.venvs/intel-ai`
+
+Kernel-parametere settes automatisk:
+```
+xe.force_probe=56a0 i915.force_probe=!56a0
+```
+
+### Ollama modeller
+
+Anbefalte startmodeller (velges under installasjon):
+
+| Modell | Størrelse | Beskrivelse |
+|---|---|---|
+| `qwen2.5:7b` | ~4.7 GB | Smart og rask — anbefalt |
+| `llama3.2:3b` | ~2.0 GB | Lynrask, bra for testing |
+| `qwen2.5:14b` | ~9.0 GB | Kraftig, bedre svar |
+| `deepseek-r1:7b` | ~4.7 GB | Resonnering og AI-tenking |
 
 ## Configuration
 
-After installation, configuration files will be placed in standard locations:
+Etter installasjon plasseres konfigurasjonsfiler i standard lokasjoner:
 
-- `~/.config/hypr/` - Hyprland configuration
-- `~/.config/waybar/` - Waybar configuration
-- `~/.config/kitty/` - Kitty terminal configuration
-- `~/.config/rofi/` - Rofi configuration
-- Additional configs in respective `~/.config/` directories
+- `~/.config/hypr/` — Hyprland konfigurasjon + GPU env
+- `~/.config/hypr/scripts/` — Alle scripts inkl. `awww-wallpaper.sh`
+- `~/.config/hypr/wallpapers/` — Bakgrunnsbilder
+- `~/.config/waybar/` — Waybar konfigurasjon
+- `~/.config/kitty/` — Kitty terminalkonfigurasjon
+- `~/.config/rofi/` — Rofi konfigurasjon
+- `~/.venvs/intel-ai/` — Python AI virtualenv (kun Medion)
 
 ## Post-Installation
 
-1. **Reboot or restart your display manager**:
+1. **Reboot**:
    ```bash
-   sudo systemctl restart sddm
+   sudo reboot
    ```
 
-2. **Select Hyprland** at the login screen
+2. **Velg Hyprland** i SDDM loginskjerm
 
-3. **Review keybindings**: Check `~/.config/hypr/hyprland.conf` for default keybindings
+3. **Verifiser installasjon**:
+   ```bash
+   ./check-installation.sh
+   ```
 
-4. **Customize**: Modify configuration files to match your preferences
+4. **GPU-status** (kun Arc A730M):
+   ```bash
+   xpu-smi
+   vainfo
+   vulkaninfo --summary
+   ```
+
+5. **Aktiver AI-venv** (kun Medion):
+   ```bash
+   source ~/.venvs/intel-ai/bin/activate
+   python -c "import torch; print(torch.xpu.is_available())"
+   ```
 
 ## Keybindings Quick Reference
 
-Run the quick reference script for a list of keybindings:
+Kjør quick reference script for en liste over keybindinger:
 
 ```bash
 ./quick-reference.sh
 ```
 
-Common keybindings:
-- `Super + Q` - Close window
-- `Super + Enter` - Open terminal
-- `Super + D` - Application launcher
-- `Super + L` - Lock screen
-- And many more...
+Vanlige keybindinger:
+- `Super + Q` — Lukk vindu
+- `Super + Enter` — Åpne terminal
+- `Super + D` — Programstarter
+- `Super + L` — Lås skjerm
+- `Super + Shift + R` — Reload Hyprland
 
 ## Troubleshooting
 
 ### Display Issues
-
-If you encounter display issues, check your `hyprland.conf` for proper monitor configuration:
 
 ```bash
 nano ~/.config/hypr/hyprland.conf
@@ -168,63 +249,101 @@ nano ~/.config/hypr/hyprland.conf
 
 ### Missing Dependencies
 
-If any components fail to work, ensure all dependencies are installed:
-
 ```bash
 pacman -Qi <package-name>
 ```
 
 ### Scripts Not Executable
 
-The 19-make-executable module handles this automatically during installation. If you need to fix permissions manually:
-
 ```bash
 cd 19-make-executable
 ./make-executable.sh
 ```
 
+### AWWW starter ikke (wallpaper)
+
+```bash
+# Sjekk om daemon kjører
+pgrep -x awww-daemon
+
+# Start manuelt
+awww-daemon &
+awww img ~/.config/hypr/wallpapers/ARCHRUUD_1920x1200.png --transition-type fade
+```
+
+### Intel Arc GPU ikke oppdaget
+
+```bash
+# Sjekk at xe-driver er aktiv
+lspci -k | grep -A3 "Arc"
+
+# Sjekk render-enheter
+ls /dev/dri/
+
+# Sjekk at bruker er i render-gruppen
+groups $USER | grep render
+```
+
+### Ollama + Open WebUI
+
+```bash
+# Sjekk Ollama status
+curl http://localhost:11434
+
+# List installerte modeller
+ollama list
+
+# Open WebUI (Docker)
+docker ps | grep open-webui
+```
+
 ## Customization
 
-Each component is designed to be easily customizable:
+Hver komponent er designet for enkel tilpasning:
 
-1. Navigate to the configuration directory
-2. Edit the relevant configuration files
-3. Reload Hyprland with `Super + Shift + R` or restart
+1. Naviger til konfigurasjonsmappen
+2. Rediger relevante konfigurasjonsfiler
+3. Reload Hyprland med `Super + Shift + R`
 
 ## Contributing
 
-Contributions are welcome! Feel free to:
+Bidrag er velkomne! Gjerne:
 
-- Report bugs
-- Suggest new features
-- Submit pull requests
-- Share your configurations
+- Rapporter bugs
+- Foreslå nye funksjoner
+- Send pull requests
+- Del dine konfigurasjoner
 
 ## Credits
 
-Created and maintained by [Archruud](https://github.com/archruud)
+Opprettet og vedlikeholdt av [Archruud](https://github.com/archruud)
 
-Built with inspiration from the Hyprland community and various dotfile repositories.
+Bygget med inspirasjon fra Hyprland-fellesskapet og diverse dotfile-repositories.
 
 ## License
 
-This project is open source. Feel free to use, modify, and distribute as needed.
+Dette prosjektet er open source. Bruk, modifiser og distribuer fritt.
 
 ## Support
 
-For issues, questions, or suggestions:
+For problemer, spørsmål eller forslag:
 
-- Open an issue on GitHub
-- Check existing issues for solutions
-- Review the Hyprland wiki: https://wiki.hyprland.org
+- Åpne en issue på GitHub
+- Sjekk eksisterende issues for løsninger
+- Se Hyprland wiki: https://wiki.hyprland.org
 
 ## Additional Resources
 
 - [Hyprland Official Website](https://hyprland.org)
 - [Arch Linux Wiki](https://wiki.archlinux.org)
+- [AWWW Wallpaper Daemon](https://codeberg.org/LGFae/awww)
 - [Waybar Documentation](https://github.com/Alexays/Waybar)
 - [Rofi Documentation](https://github.com/davatorium/rofi)
+- [Ollama](https://ollama.com)
+- [Open WebUI](https://github.com/open-webui/open-webui)
 
 ---
 
-**Note**: This setup is based on real-world usage and continuously updated. While it works well for the maintainer's setup, your mileage may vary depending on your hardware and preferences. Always review scripts before running them on your system.
+**Note**: Dette oppsettet er basert på faktisk bruk og oppdateres kontinuerlig.
+Fungerer godt for vedlikeholderens oppsett, men resultater kan variere avhengig av
+hardware og preferanser. Les alltid gjennom scripts før du kjører dem.
