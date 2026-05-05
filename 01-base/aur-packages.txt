@@ -39,5 +39,5 @@ kate                    # kate textbehandler fra KDE Plasma
 nmgui-bin               # Wifi gui - gui bassert nmcli terminal
 
 # === FONTS AND ICONS ===
-nerd-fonts-git    #Iconic font aggregator, collection, and patcher: 34 fonts (77k variations)
+# nerd-fonts-git    #Iconic font aggregator, collection, and patcher: 34 fonts (77k variations)
 
