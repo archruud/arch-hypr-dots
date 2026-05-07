@@ -11,7 +11,7 @@
 # så starter hdrop. Vinduet pre-spawnes på riktig plass.
 # ============================================================
 
-HDROP_CMD="hdrop -b -f -h 35 -w 75 -p top -g 57 kitty --class kitty_top --override window_padding_width=0"
+HDROP_CMD="hdrop -b -f -h 35 -w 75 -p top -g 57 kitty --class kitty_top -e $HOME/.config/hypr/scripts/kitty-dropdown-init.sh"
 
 # Vent til Hyprland socket eksisterer
 SOCKET="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket.sock"
