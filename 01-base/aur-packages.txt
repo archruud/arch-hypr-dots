@@ -19,7 +19,6 @@ kvantum               # Qt theme engine
 
 # === DEVELOPMENT ===
 zed
-hdrop-git # Dropdown terminal/program toggle for Hyprland - SUPER+SHIFT+RETURN
 
 # === UTILITIES ===
 rofi                    # Rofi for Wayland
@@ -40,4 +39,3 @@ nmgui-bin               # Wifi gui - gui bassert nmcli terminal
 
 # === FONTS AND ICONS ===
 # nerd-fonts-git    #Iconic font aggregator, collection, and patcher: 34 fonts (77k variations)
-
