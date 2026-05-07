@@ -83,40 +83,30 @@ case $resolution_choice in
         ;;
 esac
 
-# --- Lag awww startup script ---
+# --- Kopier eller lag awww startup script ---
 echo ""
-echo -e "${GREEN}Lager awww startup script: $AWWW_SCRIPT${NC}"
+echo -e "${GREEN}Setter opp awww startup script: $AWWW_SCRIPT${NC}"
 
-cat > "$AWWW_SCRIPT" << EOF
+if [ -f "$SCRIPT_DIR/awww-wallpaper.sh" ]; then
+    cp "$SCRIPT_DIR/awww-wallpaper.sh" "$AWWW_SCRIPT"
+    sed -i "s|^WALLPAPER_FILE=.*|WALLPAPER_FILE=\"$WALLPAPER_FILE\"|" "$AWWW_SCRIPT"
+    echo -e "${GREEN}✓ awww-wallpaper.sh kopiert fra pakken${NC}"
+else
+    cat > "$AWWW_SCRIPT" << EOF
 #!/bin/bash
-
-# AWWW Wallpaper Setter - Archruud
-# Dette scriptet starter awww daemon og setter wallpaper
-# Erstatter swww (omdøpt til awww, oktober 2025)
-
 WALLPAPER_DIR="\$HOME/.config/hypr/wallpapers"
 WALLPAPER_FILE="$WALLPAPER_FILE"
-
-# Start awww daemon (hvis ikke allerede kjører)
-if ! pgrep -x awww-daemon > /dev/null; then
-    awww-daemon &
-    sleep 1
+WALLPAPER_PATH="\$WALLPAPER_DIR/\$WALLPAPER_FILE"
+SOCKET_FILE="\${XDG_RUNTIME_DIR}/awww-\${WAYLAND_DISPLAY}.socket"
+if ! pgrep -x awww-daemon > /dev/null; then awww-daemon &; fi
+TIMEOUT=10; COUNT=0
+until [ -S "\$SOCKET_FILE" ] || [ \$COUNT -ge \$TIMEOUT ]; do sleep 0.5; COUNT=\$((COUNT+1)); done
+[ -f "\$WALLPAPER_PATH" ] && awww img "\$WALLPAPER_PATH" --transition-type fade --transition-duration 2 --transition-fps 60
+EOF
 fi
 
-# Sett wallpaper med fade transition
-awww img "\$WALLPAPER_DIR/\$WALLPAPER_FILE" \\
-    --transition-type fade \\
-    --transition-duration 2 \\
-    --transition-fps 60
-
-# Alternativt: random transition hver gang
-# TRANSITIONS=("fade" "wipe" "grow" "wave" "center" "outer")
-# RANDOM_TRANSITION=\${TRANSITIONS[\$RANDOM % \${#TRANSITIONS[@]}]}
-# awww img "\$WALLPAPER_DIR/\$WALLPAPER_FILE" --transition-type \$RANDOM_TRANSITION
-EOF
-
 chmod +x "$AWWW_SCRIPT"
-echo -e "${GREEN}✓ Startup script opprettet: $AWWW_SCRIPT${NC}"
+echo -e "${GREEN}✓ Startup script klar: $AWWW_SCRIPT${NC}"
 
 # --- Oppdater hyprland.conf ---
 if [ ! -f "$HYPRLAND_CONFIG" ]; then
