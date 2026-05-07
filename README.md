@@ -1,5 +1,4 @@
 
-# Test
 # Arch Linux Hyprland Install Scripts
 
 A modular, automated installation system for setting up Hyprland on Arch Linux with a comprehensive collection of tools and configurations.
