@@ -15,6 +15,9 @@ qt5ct                  # Qt5 theme config
 qt6ct                  # Qt6 theme config
 kvantum               # Qt theme engine
 
+# media converter
+tifig-bin  # HEIC til JPG  tifig input.heic output.jpg
+
 # === FILE MANAGERS ===
 
 # === DEVELOPMENT ===
