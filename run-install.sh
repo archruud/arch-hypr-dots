@@ -38,7 +38,7 @@ echo ""
 INSTALL_ORDER=(
     "01-base"
     "02-post-install"
-    "03-swww"
+    "03-awww"
     "04-hypridle"
     "05-hyprlock"
     "06-wlogout"
