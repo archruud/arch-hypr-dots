@@ -154,8 +154,8 @@ echo ""
 echo -e "${CYAN}══════════════════════════════════════════════════════════════${NC}"
 echo -e "${CYAN} 9. Wallpaper & Theming${NC}"
 echo -e "${CYAN}══════════════════════════════════════════════════════════════${NC}"
-check_command "swww" "SWWW"
-check_exists "$HOME/.config/hypr/swww-wallpaper.sh" "SWWW script"
+check_command "awww" "AWWW"
+check_exists "$HOME/.config/hypr/scripts/awww-wallpaper.sh" "AWWW script"
 check_exists "$HOME/.config/hypr/wallpapers" "Wallpapers mappe"
 
 echo ""
@@ -187,7 +187,6 @@ echo -e "${CYAN}═════════════════════�
 echo -e "${CYAN} 13. File Manager${NC}"
 echo -e "${CYAN}══════════════════════════════════════════════════════════════${NC}"
 check_command "dolphin" "Dolphin"
-check_command "filezilla" "FileZilla"
 
 echo ""
 echo -e "${CYAN}══════════════════════════════════════════════════════════════${NC}"
