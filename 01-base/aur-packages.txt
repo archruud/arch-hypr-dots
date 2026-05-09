@@ -34,7 +34,7 @@ auto-cpufreq            # Automatic CPU frequency scaling
 # === OPTIONAL ===
 # spotify               # Music streaming
 # discord                 #
-libreoffice-still-nb    # Office Norsk
+libreoffice-fresh-nb    # Office Norsk
 kate                    # kate textbehandler fra KDE Plasma
 
 # === NETWORK ===
