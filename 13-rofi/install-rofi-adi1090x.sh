@@ -99,7 +99,7 @@ success "adi1090x rofi installert"
 
 log "Konfigurerer type-2 launcher som standard..."
 
-LAUNCHER_SCRIPT="$HOME/.config/rofi/launchers/type-2/launcher.sh"
+LAUNCHER_SCRIPT="$HOME/.config/rofi/launchers/type-3/launcher.sh"
 
 if [ -f "$LAUNCHER_SCRIPT" ]; then
     # Sett default style til style-1 (du kan endre dette senere)
