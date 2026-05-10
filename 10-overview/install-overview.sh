@@ -118,6 +118,21 @@ else
     exit 1
 fi
 
+# Lag config.json med riktige innstillinger
+print_step "Lager config.json for overview..."
+cat > ~/.config/quickshell/overview/config.json << EOF
+{
+  "overview": {
+    "rows": 2,
+    "columns": 5,
+    "scale": 0.16,
+    "showSpecialWorkspaces": false,
+    "emptyWorkspaceWallpaper": "$HOME/.config/hypr/wallpapers/ARCHRUUD_1920x1200.png"
+  }
+}
+EOF
+print_success "config.json opprettet — Special Workspaces av, wallpaper aktivert"
+
 # Verifiser at config-filene er på plass
 print_step "Verifiserer config-filer..."
 REQUIRED_FILES=(
