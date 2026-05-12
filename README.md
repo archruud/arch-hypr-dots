@@ -55,7 +55,7 @@ The installer will guide you through the installation process, allowing you to s
 ├── 06-wlogout/              # Logout menu
 ├── 07-power-button/         # Power button configuration
 ├── 08-notifications/        # Notification system
-├── 09-dropdown-terminal/    # Dropdown terminal (hdrop)
+├── 09-dropdown-terminal/    # hdrop (valgfritt alternativ — se README der)
 ├── 10-overview/             # Workspace overview
 ├── 11-fuzzel-hyprpicker/    # Application launcher and color picker
 ├── 12-kitty/                # Kitty terminal configuration
@@ -116,6 +116,7 @@ Støtter følgende oppsett automatisk:
 - **Rofi**: Application launcher og menysystem
 - **Fuzzel**: Alternativ launcher og fargevelger
 - **Kitty**: GPU-akselerert terminalemulator
+- **Dropterminal**: JaKooLit sin dropdown terminal — følger aktivt workspace, slide-animasjon
 - **Dunst**: Lettvekts varslingsdaemon
 - **Screenshots**: Komplett skjermbildeløsning med redigeringsverktøy
 - **Make Executable**: Setter automatisk riktige rettigheter for alle scripts
@@ -227,18 +228,14 @@ Etter installasjon plasseres konfigurasjonsfiler i standard lokasjoner:
 
 ## Keybindings Quick Reference
 
-Kjør quick reference script for en liste over keybindinger:
-
-```bash
-./quick-reference.sh
-```
-
 Vanlige keybindinger:
 - `Super + Q` — Lukk vindu
 - `Super + Enter` — Åpne terminal
 - `Super + D` — Programstarter
 - `Super + L` — Lås skjerm
 - `Super + Shift + R` — Reload Hyprland
+- `Super + Shift + Return` — Toggle dropdown terminal
+- `Super + Shift + PIL` — Endre størrelse på dropdown terminal
 
 ## Troubleshooting
 
