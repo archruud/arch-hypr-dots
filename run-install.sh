@@ -44,7 +44,7 @@ INSTALL_ORDER=(
     "06-wlogout"
     "07-power-button"
     "08-notifications"
-    "09-dropdown-terminal"
+    # "09-dropdown-terminal" # hdrop - valgfritt, se 09-dropdown-terminal/README.md
     "10-overview"
     "11-fuzzel-hyprpicker"
     "12-kitty"
