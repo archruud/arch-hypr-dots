@@ -143,7 +143,7 @@ fi
 # ── Intel Extension for PyTorch ───────────────────────────────────────────────
 if pip show torch &>/dev/null; then
     step "Intel Extension for PyTorch (IPEX)"
-    if ask "Installer Intel Extension for PyTorch (IPEX) — ~500 MB?"; then
+    if true; then
         pip install intel-extension-for-pytorch --quiet
         log "IPEX installert"
     fi
@@ -181,7 +181,7 @@ log "AI/ML biblioteker installert"
 
 # ── llama-cpp-python ──────────────────────────────────────────────────────────
 step "llama-cpp-python (GGUF-modeller i Python)"
-if ask "Installer llama-cpp-python — kjør GGUF-modeller direkte?"; then
+if true; then
     CMAKE_ARGS="-DGGML_SYCL=on -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx" \
         pip install llama-cpp-python --quiet 2>/dev/null || \
         pip install llama-cpp-python --quiet
@@ -190,7 +190,7 @@ fi
 
 # ── Jupyter ───────────────────────────────────────────────────────────────────
 step "Jupyter Notebook"
-if ask "Installer Jupyter Notebook — interaktiv AI-utvikling?"; then
+if true; then
     pip install jupyter ipykernel notebook jupyterlab --quiet
     python -m ipykernel install --user --name=intel-ai --display-name="Intel AI (Arc A730M)"
     log "Jupyter installert med intel-ai kernel"
