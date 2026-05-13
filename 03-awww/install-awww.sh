@@ -68,7 +68,7 @@ echo -e "${CYAN}Hvilken oppløsning vil du bruke som standard?${NC}"
 echo "  1) 1920x1200 (anbefalt for laptop)"
 echo "  2) 2560x1600 (for større skjermer)"
 echo ""
-read -p "Velg (1 eller 2): " resolution_choice
+resolution_choice=1
 
 case $resolution_choice in
     1)
