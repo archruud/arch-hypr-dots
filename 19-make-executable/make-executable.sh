@@ -34,7 +34,7 @@ if [ -f "$TARGET" ]; then
     else
         echo -e "${YELLOW}⚠${NC} $(basename "$TARGET") er ikke en .sh fil"
         echo -e "Vil du gjøre den kjørbar likevel? (j/n)"
-        read -r answer
+        answer=j
         if [[ "$answer" =~ ^[jJ]$ ]]; then
             chmod +x "$TARGET"
             echo -e "${GREEN}✓${NC} $(basename "$TARGET") er nå kjørbar"
