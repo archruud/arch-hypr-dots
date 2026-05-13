@@ -41,7 +41,7 @@ if [ -f "$PACMAN_LIST" ]; then
         echo ""
         echo ""
         
-        read -p "Fortsette med installasjon? (y/n): " confirm
+        confirm=y
         if [[ "$confirm" =~ ^[Yy]$ ]]; then
             # Konverter newlines til space for pacman
             PKG_STRING=$(echo "$PACMAN_PKGS" | tr '\n' ' ')
@@ -73,7 +73,7 @@ echo ""
 if ! command -v yay &> /dev/null && ! command -v paru &> /dev/null; then
     echo -e "${YELLOW}Ingen AUR helper (yay/paru) funnet${NC}"
     echo -e "${YELLOW}Vil du installere yay? (y/n)${NC}"
-    read -p "> " install_yay
+    install_yay=j
     
     if [[ "$install_yay" =~ ^[Yy]$ ]]; then
         echo -e "${GREEN}Installerer yay...${NC}"
@@ -115,7 +115,7 @@ if [ -f "$AUR_LIST" ]; then
         echo ""
         echo ""
         
-        read -p "Fortsette med installasjon? (y/n): " confirm
+        confirm=y
         if [[ "$confirm" =~ ^[Yy]$ ]]; then
             # Installer én av gangen (AUR kan være tregt)
             while IFS= read -r pkg; do
