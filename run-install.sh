@@ -24,23 +24,26 @@ if [ ! -f "install-order.conf" ]; then
     exit 1
 fi
 
-# ── Sudo passord én gang + keepalive ─────────────────────────────────────────
-echo -e "${YELLOW}🔐 Skriv inn sudo-passord (brukes gjennom hele installasjonen):${NC}"
-sudo -v
-# Hold sudo aktivt i bakgrunnen
-( while true; do sudo -n true; sleep 50; done ) &
-SUDO_KEEPALIVE_PID=$!
-trap "kill $SUDO_KEEPALIVE_PID 2>/dev/null" EXIT
+# ── Logg alt til fil ──────────────────────────────────────────────────────────
+LOG_FILE="$(pwd)/install-$(date +%Y%m%d-%H%M%S).log"
+exec > >(tee -a "$LOG_FILE") 2>&1
+echo -e "${CYAN}📝 Logg: $LOG_FILE${NC}"
+echo ""
+
+# ── Sudo: passord én gang, NOPASSWD gjennom hele installasjonen ───────────────
+echo -e "${YELLOW}🔐 Skriv sudo-passord (kun én gang):${NC}"
+sudo -v || { echo -e "${RED}Feil passord${NC}"; exit 1; }
+echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/hypr-install > /dev/null
+trap 'sudo rm -f /etc/sudoers.d/hypr-install; echo "🔐 Sudo-tilgang tilbakestilt"' EXIT
+echo -e "${GREEN}✓ Sudo aktivt — ingen flere passord-forespørsler${NC}"
+echo ""
 
 # ── Aktiver multilib tidlig ───────────────────────────────────────────────────
-echo -e "${CYAN}🔧 Sjekker multilib...${NC}"
 if ! grep -q "^\[multilib\]" /etc/pacman.conf; then
-    echo -e "${YELLOW}  Aktiverer multilib i pacman.conf...${NC}"
+    echo -e "${CYAN}🔧 Aktiverer multilib...${NC}"
     sudo sed -i '/^#\[multilib\]/,/^#Include/ s/^#//' /etc/pacman.conf
     sudo pacman -Sy --noconfirm
-    echo -e "${GREEN}  ✓ multilib aktivert${NC}"
-else
-    echo -e "${GREEN}  ✓ multilib allerede aktivert${NC}"
+    echo -e "${GREEN}✓ multilib aktivert${NC}"
 fi
 
 REPO_ROOT=$(pwd)
