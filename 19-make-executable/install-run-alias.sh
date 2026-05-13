@@ -58,7 +58,7 @@ esac
 if grep -q "alias run=" "$CONFIG_FILE" 2>/dev/null; then
     echo -e "${YELLOW}⚠ Alias 'run' finnes allerede i $CONFIG_FILE${NC}"
     echo -e "Vil du overskrive? (j/n)"
-    read -r answer
+    answer=j
     if [[ ! "$answer" =~ ^[jJ]$ ]]; then
         echo -e "\n${GREEN}✓ Installasjon fullført (uten alias)${NC}"
         echo -e "Du kan legge til alias manuelt:"
