@@ -93,9 +93,8 @@ fi
 # Sjekk om hyprlock er installert (trengs for locking)
 if ! command -v hyprlock &> /dev/null; then
     echo -e "${YELLOW}Hyprlock er ikke installert (anbefales for locking)${NC}"
-    echo -e "${YELLOW}Installere hyprlock? (y/n)${NC}"
-    read -r response
-    if [[ "$response" =~ ^[Yy]$ ]]; then
+    echo -e "${CYAN}Installerer hyprlock automatisk...${NC}"
+    if true; then
         if command -v yay &> /dev/null; then
             yay -S --noconfirm hyprlock
         elif command -v paru &> /dev/null; then
@@ -107,9 +106,8 @@ fi
 # Sjekk om brightnessctl er installert (trengs for dimming)
 if ! command -v brightnessctl &> /dev/null; then
     echo -e "${YELLOW}Brightnessctl er ikke installert (trengs for auto-dimming)${NC}"
-    echo -e "${YELLOW}Installere brightnessctl? (y/n)${NC}"
-    read -r response
-    if [[ "$response" =~ ^[Yy]$ ]]; then
+    echo -e "${CYAN}Installerer brightnessctl automatisk...${NC}"
+    if true; then
         sudo pacman -S --noconfirm brightnessctl
     fi
 fi
