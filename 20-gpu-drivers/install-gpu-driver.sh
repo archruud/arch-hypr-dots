@@ -104,7 +104,7 @@ if $HAS_ARC; then
     echo -e "${YELLOW}Intel Arc diskret GPU oppdaget!${NC}"
     echo -e "${YELLOW}Dette installerer AI/ML drivere og biblioteker.${NC}"
     echo -e "${YELLOW}Noen pakker er over 1 GB — du vil bli spurt underveis.${NC}"
-    read -p "Installer Intel Arc AI-drivere? (j/n): " arc_choice
+    arc_choice=j
     if [[ "$arc_choice" =~ ^[jJ]$ ]]; then
         step "Del 2: Intel Arc A730M AI-drivere"
         bash "$SCRIPT_DIR/install-intel-arc.sh" "$AUR_HELPER"
@@ -119,7 +119,7 @@ fi
 
 # ── Del 3: Ollama + Open WebUI ───────────────────────────────────────────────
 echo ""
-read -p "Installer Ollama + Open WebUI (lokal AI)? (j/n): " ollama_choice
+ollama_choice=j
 if [[ "$ollama_choice" =~ ^[jJ]$ ]]; then
     step "Del 3: Ollama + Open WebUI"
     bash "$SCRIPT_DIR/install-ollama.sh" "$AUR_HELPER"
