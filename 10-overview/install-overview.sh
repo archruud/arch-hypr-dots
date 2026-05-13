@@ -3,7 +3,6 @@
 # For Arch Linux Hyprland
 # Versjon: 1.0
 
-set -e  # Stopp ved feil
 
 # Farger for output
 RED='\033[0;31m'
@@ -44,13 +43,12 @@ if [ ! -f /etc/arch-release ]; then
 fi
 print_success "Arch Linux detektert"
 
-# Sjekk at Hyprland er installert
-if ! command -v hyprctl &> /dev/null; then
-    print_error "Hyprland er ikke installert!"
-    echo "Installer Hyprland først: sudo pacman -S hyprland"
-    exit 1
+# Hyprland trenger ikke kjøre under installasjon
+if command -v hyprctl &> /dev/null; then
+    print_success "Hyprland er installert"
+else
+    print_warning "hyprctl ikke funnet — fortsetter likevel (Hyprland installeres av 01-base)"
 fi
-print_success "Hyprland er installert"
 
 # Sjekk AUR helper
 print_step "Sjekker AUR helper..."
@@ -80,11 +78,10 @@ else
     exit 1
 fi
 
-# Installer Quickshell
-print_step "Installerer Quickshell..."
-echo "Dette kan ta noen minutter (kompilering)..."
-if $AUR_HELPER -S --needed --noconfirm quickshell; then
-    print_success "Quickshell installert"
+# Installer Quickshell fra offisielt extra repo
+print_step "Installerer Quickshell (extra repo)..."
+if sudo pacman -S --needed --noconfirm quickshell; then
+    print_success "Quickshell installert fra extra"
 else
     print_error "Feil under installasjon av Quickshell"
     exit 1
