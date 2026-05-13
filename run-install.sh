@@ -20,8 +20,27 @@ echo ""
 # Sjekk at vi er i riktig mappe
 if [ ! -f "install-order.conf" ]; then
     echo -e "${RED}❌ FEIL: Må kjøres fra repo-roten!${NC}"
-    echo "   cd ~/Arch-Linux-Hyprland-Install-Scripts"
+    echo "   cd ~/arch-hypr-dots"
     exit 1
+fi
+
+# ── Sudo passord én gang + keepalive ─────────────────────────────────────────
+echo -e "${YELLOW}🔐 Skriv inn sudo-passord (brukes gjennom hele installasjonen):${NC}"
+sudo -v
+# Hold sudo aktivt i bakgrunnen
+( while true; do sudo -n true; sleep 50; done ) &
+SUDO_KEEPALIVE_PID=$!
+trap "kill $SUDO_KEEPALIVE_PID 2>/dev/null" EXIT
+
+# ── Aktiver multilib tidlig ───────────────────────────────────────────────────
+echo -e "${CYAN}🔧 Sjekker multilib...${NC}"
+if ! grep -q "^\[multilib\]" /etc/pacman.conf; then
+    echo -e "${YELLOW}  Aktiverer multilib i pacman.conf...${NC}"
+    sudo sed -i '/^#\[multilib\]/,/^#Include/ s/^#//' /etc/pacman.conf
+    sudo pacman -Sy --noconfirm
+    echo -e "${GREEN}  ✓ multilib aktivert${NC}"
+else
+    echo -e "${GREEN}  ✓ multilib allerede aktivert${NC}"
 fi
 
 REPO_ROOT=$(pwd)
