@@ -8,9 +8,10 @@
 #   Dell Pro 16        — Intel integrert GPU
 #   Lenovo (12. gen)   — Intel integrert GPU
 #   Medion Erazer X10  — Intel Iris Xe + Intel Arc A730M
+#
+# Respekterer INSTALL_MODE=auto|interaktiv fra run-install.sh
 # ============================================================
 
-# Farger
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -25,13 +26,26 @@ err()  { echo -e "${RED}[✗]${NC} $1"; }
 step() { echo -e "\n${BLUE}━━━ $1 ━━━${NC}"; }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+INSTALL_MODE="${INSTALL_MODE:-auto}"
 
 echo ""
 echo -e "${CYAN}══════════════════════════════════════════════════════════════${NC}"
 echo -e "${CYAN}  20-gpu-drivers — GPU Driver Installasjon${NC}"
-echo -e "${CYAN}  Arch Linux Hyprland | archruud${NC}"
+echo -e "${CYAN}  Modus: ${INSTALL_MODE^^}${NC}"
 echo -e "${CYAN}══════════════════════════════════════════════════════════════${NC}"
 echo ""
+
+# Hjelpefunksjon: spør kun i interaktiv modus
+spor() {
+    local sporsmal="$1"
+    if [ "$INSTALL_MODE" = "interaktiv" ]; then
+        read -rp "  $sporsmal [J/n]: " svar
+        svar=${svar:-J}
+        [[ "$svar" =~ ^[JjYy]$ ]]
+    else
+        return 0  # AUTO: alltid ja
+    fi
+}
 
 # ── Sjekk ikke root ───────────────────────────────────────────────────────────
 if [[ $EUID -eq 0 ]]; then
@@ -42,16 +56,15 @@ fi
 # ── Sjekk multilib ────────────────────────────────────────────────────────────
 step "Sjekker multilib"
 if ! grep -q "^\[multilib\]" /etc/pacman.conf; then
-    warn "multilib er ikke aktivert i /etc/pacman.conf"
-    warn "lib32-pakker krever multilib. Aktiverer nå..."
+    warn "multilib ikke aktivert — aktiverer nå..."
     sudo sed -i '/^#\[multilib\]/,/^#Include/ s/^#//' /etc/pacman.conf
     sudo pacman -Sy --noconfirm
-    log "multilib aktivert og synkronisert"
+    log "multilib aktivert"
 else
-    log "multilib er allerede aktivert"
+    log "multilib allerede aktivert"
 fi
 
-# ── Oppdater system ───────────────────────────────────────────────────────────
+# ── Oppdater pakkebase ────────────────────────────────────────────────────────
 step "Oppdaterer pakkebase"
 sudo pacman -Sy --noconfirm
 log "Pakkebase oppdatert"
@@ -102,10 +115,9 @@ fi
 if $HAS_ARC; then
     echo ""
     echo -e "${YELLOW}Intel Arc diskret GPU oppdaget!${NC}"
-    echo -e "${YELLOW}Dette installerer AI/ML drivere og biblioteker.${NC}"
-    echo -e "${YELLOW}Noen pakker er over 1 GB — du vil bli spurt underveis.${NC}"
-    arc_choice=j
-    if [[ "$arc_choice" =~ ^[jJ]$ ]]; then
+    echo -e "${YELLOW}Dette installerer AI/ML drivere og biblioteker (stor nedlasting).${NC}"
+
+    if spor "Installer Intel Arc AI-drivere?"; then
         step "Del 2: Intel Arc A730M AI-drivere"
         bash "$SCRIPT_DIR/install-intel-arc.sh" "$AUR_HELPER"
         if [[ $? -ne 0 ]]; then
@@ -117,12 +129,19 @@ if $HAS_ARC; then
     fi
 fi
 
-# ── Del 3: Ollama + Open WebUI ───────────────────────────────────────────────
-echo ""
-ollama_choice=j
-if [[ "$ollama_choice" =~ ^[jJ]$ ]]; then
-    step "Del 3: Ollama + Open WebUI"
-    bash "$SCRIPT_DIR/install-ollama.sh" "$AUR_HELPER"
+# ── Del 3: Ollama + Open WebUI (KUN på Arc-maskin) ───────────────────────────
+if $HAS_ARC; then
+    echo ""
+    echo -e "${YELLOW}Ollama + Open WebUI — Lokal AI (~21 GB nedlasting)${NC}"
+
+    if spor "Installer Ollama + Open WebUI med alle AI-modeller?"; then
+        step "Del 3: Ollama + Open WebUI"
+        bash "$SCRIPT_DIR/install-ollama.sh" "$AUR_HELPER"
+    else
+        info "Hopper over Ollama — kan installeres manuelt: bash 20-gpu-drivers/install-ollama.sh"
+    fi
+else
+    info "Ingen Arc GPU — Ollama installeres ikke (kun relevant for Medion Erazer X10)"
 fi
 
 # ── Ferdig ────────────────────────────────────────────────────────────────────
@@ -136,6 +155,7 @@ echo "  • Reboot anbefales for at alle drivere skal aktiveres"
 if $HAS_ARC; then
     echo "  • Arc GPU: kjør 'xpu-smi' for å se GPU-status"
     echo "  • AI venv: source ~/.venvs/intel-ai/bin/activate"
+    echo "  • Open WebUI: http://localhost:3000"
 fi
 echo ""
 echo -e "${CYAN}Reboot: sudo reboot${NC}"
