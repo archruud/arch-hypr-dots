@@ -121,7 +121,7 @@ if [ -f "$AUR_LIST" ]; then
                     echo ""
                     echo -e "${GREEN}Installerer: $pkg${NC}"
                     if command -v yay &> /dev/null; then
-                        yay -S --needed --answerdiff=None --answerclean=None "$pkg"
+                        yay -S --needed --noconfirm --answerdiff=None --answerclean=None --answeredit=None --answerupgrade=None "$pkg"
                     elif command -v paru &> /dev/null; then
                         paru -S --needed --noconfirm "$pkg"
                     fi
