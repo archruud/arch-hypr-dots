@@ -97,12 +97,12 @@ success "adi1090x rofi installert"
 #  4. KONFIGURER TYPE-2 LAUNCHER
 # ═══════════════════════════════════════════════════════════════════════════
 
-log "Konfigurerer type-2 launcher som standard..."
+log "Konfigurerer type-3 launcher som standard..."
 
 LAUNCHER_SCRIPT="$HOME/.config/rofi/launchers/type-3/launcher.sh"
 
 if [ -f "$LAUNCHER_SCRIPT" ]; then
-    # Sett default style til style-1 (du kan endre dette senere)
+    # Sett default style til style-2 (du kan endre dette senere)
     sed -i "s/theme='style-[0-9]'/theme='style-1'/" "$LAUNCHER_SCRIPT"
     chmod +x "$LAUNCHER_SCRIPT"
     success "Type-2 launcher konfigurert"
