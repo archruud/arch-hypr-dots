@@ -40,8 +40,6 @@ kate                    # kate textbehandler fra KDE Plasma
 
 # === NETWORK ===
 nmgui-bin               # Wifi gui - gui bassert nmcli terminal
-kio-gdrive              # Google Drive
-kaccounts-providers     # Google Drive
 
 # === FONTS AND ICONS ===
 # nerd-fonts-git    #Iconic font aggregator, collection, and patcher: 34 fonts (77k variations)
