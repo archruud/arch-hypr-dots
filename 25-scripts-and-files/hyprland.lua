@@ -129,6 +129,17 @@ hl.config({
 })
 
 --────────────────────────────────────────────────────────────────────────────
+-- GESTURES (3-finger sveip for workspace-bytte)
+-- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Gestures/
+--────────────────────────────────────────────────────────────────────────────
+
+hl.gesture({
+    fingers   = 3,
+    direction = "horizontal",
+    action    = "workspace",
+})
+
+--────────────────────────────────────────────────────────────────────────────
 -- ANIMASJONER
 -- https://wiki.hypr.land/Configuring/Animations/
 --────────────────────────────────────────────────────────────────────────────
@@ -298,9 +309,4 @@ hl.window_rule({
     animation = "slide",
 })
 
--- ╔══════════════════════════════════════════════════════════════════════════╗
--- ║  MERK: gesture = 3, horizontal, workspace                               ║
--- ║  Lua-syntaksen for gesture er ikke offisielt dokumentert ennå i 0.55.   ║
--- ║  Sjekk: https://wiki.hypr.land/Configuring/Variables/ under gestures    ║
--- ║  Midlertidig løsning: bruk hyprland.conf for gesture-linjen             ║
--- ╚══════════════════════════════════════════════════════════════════════════╝
+-- Gesture er nå lagt inn med hl.gesture() — se GESTURES-seksjonen over.
