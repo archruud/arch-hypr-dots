@@ -57,6 +57,7 @@ if $HAS_ARC; then
     sudo tee /etc/systemd/system/ollama.service.d/performance.conf >/dev/null <<'PERF'
 [Service]
 Environment="OLLAMA_VULKAN=1"
+Environment="GGML_VK_VISIBLE_DEVICES=1"
 Environment="OLLAMA_KEEP_ALIVE=30m"
 Environment="OLLAMA_FLASH_ATTENTION=1"
 PERF

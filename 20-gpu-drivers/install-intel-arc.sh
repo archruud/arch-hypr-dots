@@ -140,14 +140,10 @@ else
     info "Hopper over PyTorch XPU"
 fi
 
-# ── Intel Extension for PyTorch ───────────────────────────────────────────────
-if pip show torch &>/dev/null; then
-    step "Intel Extension for PyTorch (IPEX)"
-    if true; then
-        pip install intel-extension-for-pytorch --quiet
-        log "IPEX installert"
-    fi
-fi
+# ── Intel Extension for PyTorch (IPEX) ──────────────────────────────────────
+# IPEX er faset ut og bakt inn i PyTorch 2.8+ (XPU-støtte er native).
+# Ingen egen installasjon nødvendig.
+info "IPEX hoppes over — innebygd i PyTorch 2.8+"
 
 # ── AI/ML biblioteker ─────────────────────────────────────────────────────────
 step "AI/ML biblioteker"
