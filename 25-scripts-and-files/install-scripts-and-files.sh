@@ -16,12 +16,21 @@ echo "Script kjøres fra: $SCRIPT_DIR"
 echo ""
 
 # Definer kilde og destinasjon
+# NB: Hyprland 0.55+ laster hyprland.lua HVIS den finnes — .lua er hovedfila.
+# hyprland.conf kopieres også som referanse og for eldre moduler som redigerer den.
+SOURCE_HYPRLAND_LUA="$SCRIPT_DIR/hyprland.lua"
 SOURCE_HYPRLAND="$SCRIPT_DIR/hyprland.conf"
 SOURCE_SCRIPTS="$SCRIPT_DIR/scripts"
 DEST_HYPR="$HOME/.config/hypr"
 
 # Sjekk at kildefilene eksisterer
 echo "✓ Funnet kildefiler:"
+if [ -f "$SOURCE_HYPRLAND_LUA" ]; then
+    echo "  - $SOURCE_HYPRLAND_LUA"
+else
+    echo "  ✗ Finner ikke hyprland.lua"
+fi
+
 if [ -f "$SOURCE_HYPRLAND" ]; then
     echo "  - $SOURCE_HYPRLAND"
 else
@@ -40,7 +49,19 @@ echo ""
 mkdir -p "$DEST_HYPR"
 mkdir -p "$DEST_HYPR/scripts"
 
-# Kopier hyprland.conf til ~/.config/hypr/
+# Kopier hyprland.lua til ~/.config/hypr/ (HOVEDFILA — Hyprland laster denne)
+if [ -f "$SOURCE_HYPRLAND_LUA" ]; then
+    echo "📁 Kopierer hyprland.lua til $DEST_HYPR"
+    cp -f "$SOURCE_HYPRLAND_LUA" "$DEST_HYPR/hyprland.lua"
+
+    if [ $? -eq 0 ]; then
+        echo "✓ hyprland.lua kopiert (Hyprland laster denne)"
+    else
+        echo "✗ Feil ved kopiering av hyprland.lua"
+    fi
+fi
+
+# Kopier hyprland.conf til ~/.config/hypr/ (referanse + for moduler som redigerer den)
 if [ -f "$SOURCE_HYPRLAND" ]; then
     echo "📁 Kopierer hyprland.conf til $DEST_HYPR"
     cp -f "$SOURCE_HYPRLAND" "$DEST_HYPR/hyprland.conf"
@@ -87,7 +108,8 @@ echo "✓ Installasjon fullført!"
 echo "══════════════════════════════════════════════════════════════"
 echo ""
 echo "Filer installert:"
-echo "  - $DEST_HYPR/hyprland.conf"
+echo "  - $DEST_HYPR/hyprland.lua   (hovedconfig — Hyprland laster denne)"
+echo "  - $DEST_HYPR/hyprland.conf  (referanse)"
 echo "  - Scripts i $DEST_HYPR/scripts/"
 echo ""
 echo "Scripts er nå kjørbare og klare til bruk!"

@@ -37,6 +37,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd(os.getenv("HOME") .. "/.config/hypr/scripts/awww-wallpaper.sh")
     hl.exec_cmd("sleep 1 && waybar")        -- sleep 1: waybar timing-fix for 0.55
     hl.exec_cmd("dunst")
+    hl.exec_cmd("hypridle")
     hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
     hl.exec_cmd("qs -c overview")
     hl.exec_cmd("wl-paste --type text --watch cliphist store")
