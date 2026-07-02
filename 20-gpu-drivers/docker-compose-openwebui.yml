@@ -1,0 +1,22 @@
+# ══════════════════════════════════════════════════════════════
+#  Open WebUI — web-grensesnitt for Ollama (Medion Erazer, Arc A730M)
+#  Ollama kjører native på Arch (GPU-en styres av Ollama, ikke Docker)
+#  Start:      docker compose up -d
+#  Oppdater:   docker compose pull && docker compose up -d
+#  UI:         http://localhost:8080
+# ══════════════════════════════════════════════════════════════
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    network_mode: host          # Enkleste og mest robuste på Linux — når Ollama på 127.0.0.1:11434
+    environment:
+      - OLLAMA_BASE_URL=http://127.0.0.1:11434
+      - RAG_EMBEDDING_ENGINE=ollama
+      - RAG_EMBEDDING_MODEL=nomic-embed-text   # samme embeddings-modell som på Bionic GPT
+    volumes:
+      - open-webui:/app/backend/data           # samtaler, brukere, innstillinger — overlever oppdateringer
+    restart: always
+
+volumes:
+  open-webui:

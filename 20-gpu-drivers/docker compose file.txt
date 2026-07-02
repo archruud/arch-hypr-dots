@@ -1,0 +1,3 @@
+mkdir -p ~/docker/open-webui && cd ~/docker/open-webui
+# legg docker-compose-openwebui.yml her som docker-compose.yml
+docker compose up -d
