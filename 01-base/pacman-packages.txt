@@ -59,6 +59,9 @@ wireplumber            # Session manager
 alsa-utils             # ALSA utilities
 pamixer                # Audio mixer CLI
 
+# === BROWSER ===
+firefox
+
 # === DEVELOPMENT (optional) ===
 python
 python-pip
